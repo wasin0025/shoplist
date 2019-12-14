@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular' ; 
+import { NavController } from '@ionic/angular';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-list',
@@ -7,13 +8,18 @@ import { NavController } from '@ionic/angular' ;
   styleUrls: ['./list.page.scss'],
 })
 export class ListPage implements OnInit {
-  list: Array<{name:string,price:number}>=[];
-  constructor(public navCtrl: NavController) { 
-    this.list.push({name:"banana",price:10});
-    this.list.push({name:"apple",price:7});
-    this.list.push({name:"apple",price:8});
-    this.list.push({name:"apple",price:9});
-    this.list.push({name:"apple",price:10});
+  list = [];
+  constructor(public navCtrl: NavController, private afStore: AngularFirestore) {
+    // this.list.push({name:"banana",price:10});
+    // this.list.push({name:"apple",price:7});
+    // this.list.push({name:"apple",price:8});
+    // this.list.push({name:"apple",price:9});
+    // this.list.push({name:"apple",price:10});
+    const collections = this.afStore.collection('lists');
+    collections.valueChanges().subscribe(e => {
+      console.log(e, 'e');
+      this.list = e;
+    });
   }
 
   ngOnInit() {

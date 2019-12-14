@@ -1,22 +1,31 @@
 <ion-header>
-      <ion-toolbar>
+    <ion-toolbar>
         <ion-title>
-          Shopping-list
-        </ion-title>
+            Shopping-list
+          </ion-title>
       </ion-toolbar>
-    </ion-header>
-    
-    <ion-content>
-      <h3>Welcome to Your Shopping List application</h3>
-      <div class="ion-padding">
+</ion-header>
+
+<ion-content>
+    <h3>Welcome to Your Shopping List application</h3>
+  <!--   <div class="ion-padding">
         <ion-button routerLink="/login/" routerDirection= "forward">Login</ion-button>
-      </div>
-      <div class="ion-padding">
-        <ion-button routerLink="/register/" routerDirection= "forward">Register</ion-button>
-      </div>
-    </ion-content>
-    
-    <form [formGroup]="registerForm">
+      </div> -->
+    <div class="ion-padding">
+        <ion-button (click)="doFacebookLogin()" routerDirection= "forward">Login</ion-button>
+    <ion-button (click)="doFacebookLogout()" routerDirection= "forward">Logout</ion-button>
+  </div>
+  <div *ngIf="afAuth.user | async as user">
+    <ion-img [style.width.px]="100" [src]="user.photoURL" class="a"></ion-img>
+    <ion-item>Hello {{user.displayName}}!!!</ion-item>
+    <!--{{ user | json}}-->
+    <div>
+      <ion-button routerLink="/addlist/" class="a">Go to main page</ion-button>
+    </div>
+  </div>
+</ion-content>
+
+<!-- <form [formGroup]="registerForm">
         <div class="form-group">
           <label>Email address</label>
           <input type="email" formControlName="email" class="form-control" required>
@@ -28,5 +37,4 @@
           <label class="success">{{successMessage}}</label>
         </div>
         <button type="submit" (click)="tryRegister(registerForm.value)" class="btn btn-default">Register</button>
-     </form>
-    
+     </form> -->
